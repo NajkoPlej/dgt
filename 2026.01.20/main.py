@@ -82,6 +82,7 @@ def apply_theme(fn_theme_value):
 # - kľúč v storage: "theme"
 
 def save_theme():
+    storage["theme"] = theme
     pass
 
 
