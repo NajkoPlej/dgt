@@ -71,12 +71,10 @@ def remove_last(ev):
 
 
 
-# TODO 2 doplň apply_theme(theme_value)
-# - nastav document.body.class_name
-# - nastav theme_label.text
-
 def apply_theme(fn_theme_value):
-    document.body.class_name = fn_theme_value
+    global theme_label #overim si farbu a 
+    document.body.class_name = fn_theme_value #zmenim css calssname
+    fn_theme_value.text = fn_theme_value #zmenim farbu na aku vybral pouzivatel
     
 
 
