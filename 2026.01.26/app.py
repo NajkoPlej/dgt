@@ -1,5 +1,5 @@
 from browser import document, html, window
-from browser import brython 
+
 
 # VERZIA: A
 # Hotovo: Hotovo prepína klávesou K (keď je položka vybraná).
@@ -40,6 +40,7 @@ def render():
         li.class_name= " ".join(classes)
 
         if li.class_name == "selected":
+            pass
 
         
         # ----------------------------------------------
@@ -76,8 +77,6 @@ def save():
     import json
     from browser import window
     window.localStorage[STORAGE_KEY] = json.dumps(items)
-    """TODO (Hodina 2): ulož items do localStorage ako JSON."""
-    pass
 
 def load():
     import json
@@ -177,7 +176,7 @@ def on_keydown(ev):
     if selected_id is None:
         return
     if ev.key.upper() == "K":
-    toggle_done(selected_id)
+        toggle_done(selected_id)
 
 
 
