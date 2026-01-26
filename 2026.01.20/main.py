@@ -16,8 +16,7 @@ out = document["out"]
 
 items = []
 theme = "light"
-# TODO 1 vytvor premennú theme a pri štarte ju nastav z load_theme()
-# theme = "light"
+
 
 
 def render():
@@ -78,28 +77,35 @@ def apply_theme(fn_theme_value):
     
 
 
-# TODO 3 doplň save_theme() a load_theme()
-# - kľúč v storage: "theme"
 
 def save_theme():
     storage["theme"] = theme
-    pass
+
 
 
 def load_theme():
-    pass
+    data = storage.get("theme", "") #pytame data pod klucom theme a pozire ci tam je nieco take , vrati prazdny retazec
+    if len(data) == 0: #ak text neni 
+        return "light" 
+    return data 
 
 
-# TODO 4 doplň toggle_theme()
-# - prepni theme light/dark
-# - zavolaj apply_theme(theme)
-# - zavolaj save_theme()
+
+
 
 def toggle_theme(ev=None):
-    pass
+    global theme         #premenna thema bude golabalna
+    if theme =="light":
+        theme = "dark"
+    else:
+        theme = "light"
+    apply_theme(theme)    #aplikujem novu themu
+    save_theme()    #ulozim do storagu
 
 
 
+
+document.bind("keydown", on_key)
 btn_add.bind("click", add_item)
 btn_clear.bind("click", clear_all)
 btn_last.bind("click", remove_last)
@@ -110,4 +116,5 @@ btn_theme.bind("click", toggle_theme)
 
 items = load_items()
 render()
-# TODO 5 theme = load_theme(); apply_theme(theme)
+theme = load_theme() 
+apply_theme(theme)
