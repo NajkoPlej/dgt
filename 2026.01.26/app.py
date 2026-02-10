@@ -51,9 +51,13 @@ def render():
         # Ovládacie prvky
         btn_done = html.BUTTON("Hotovo")
         btn_done.attrs["data-role"] = "done"
+        
+
+        
 
         btn_del = html.BUTTON("X")
         btn_del.attrs["data-role"] = "del"
+        
 
         li <= txt + " " + btn_done + " " + btn_del
         lst <= li
@@ -150,6 +154,7 @@ def on_list_click(ev):
     target = ev.target
     role = target.attrs.get("data-role")
     # nájdi LI rodiča
+    
     li = target
     while li and li.tagName != "LI":
         li = li.parent
