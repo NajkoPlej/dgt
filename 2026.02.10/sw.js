@@ -29,6 +29,7 @@ self.addEventListener("install", (event) => {
     const cache = await caches.open(STATIC_CACHE);
     await cache.addAll(PRECACHE_ASSETS);
     // Voliteľne (na budúci týždeň): self.skipWaiting();
+    self.skipWaiting();
   })());
 });
 
