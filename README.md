@@ -1,5 +1,5 @@
-1. DRUHY APLIKÁCIÍ
-   1️ Native aplikácie
+---- 1. DRUHY APLIKÁCIÍ ----
+    a) Native aplikácie
 Vytvorené priamo pre Android / iOS
 Inštalácia cez Store (Google Play, App Store)
 Plný prístup k hardvéru:
@@ -14,7 +14,7 @@ Používajú špecifické natívne API
 Výhoda: maximálny výkon a plný HW prístup
 Nevýhoda: vývoj zvlášť pre každú platformu
 
-    2️ Hybrid aplikácie
+   b) Hybrid aplikácie
 Webová aplikácia zabalená do WebView („web v krabičke“)
 Obsahuje mostík medzi webom a natívnymi funkciami
 Distribúcia cez Store
@@ -27,7 +27,7 @@ Pár natívnych schopností
 Výhoda: jeden kód pre viac platforiem
 Nevýhoda: závislosť na internete
 
-    3️ PWA (Progressive Web App)
+   c) PWA (Progressive Web App)
 PWA = web + manifest + service worker + HTTPS
 Inštalácia z webu („Add to Home Screen“)
 Spája výhody webu a natívnych aplikácií
@@ -37,7 +37,7 @@ Offline režim pomocou cache
 Nemá plný prístup k HW ako native
 ⚠ Service Worker nebeží ako klasická aplikácia na pozadí – funguje v rámci prehliadača.
 
-ANDROID – ZÁKLADNÉ POJMY
+---- ANDROID – ZÁKLADNÉ POJMY ----
 Activity – jedna obrazovka aplikácie
 Intent – presun medzi obrazovkami
 Android Manifest – pravidlá aplikácie:
@@ -45,8 +45,8 @@ názov
 povolenia
 aktivity
 
-PWA – ČO JE NUTNÉ
-    1️ Web Manifest (manifest.webmanifest / .json)
+-- PWA – ČO JE NUTNÉ --
+    1. Web Manifest (manifest.webmanifest / .json)
 „Vizitka aplikácie“
 Najdôležitejšie:
 name
@@ -59,7 +59,7 @@ id
 background_color
 theme_color
 
-    2 Service Worker
+   2. Service Worker
 Zabezpečuje offline režim a cache.
 Lifecycle udalosti:
 install → precache súborov
@@ -70,11 +70,11 @@ Cache-first → statické súbory (HTML, CSS, JS, obrázky)
 Network-first + fallback → dynamické dáta (JSON)
 Stale-while-revalidate → rýchla odpoveď + aktualizácia na pozadí
 
-     3️ HTTPS
+   3. HTTPS
 Povinné pre PWA (okrem localhost)
 Bezpečnostné pravidlá podľa domény (origin)
 
-    BEZPEČNOSŤ
+  - BEZPEČNOSŤ -
 Android
 Sandbox → každá aplikácia má vlastný priestor
 Permissions → aplikácia sa pýta na prístup (kamera, mikrofón…)
@@ -82,7 +82,7 @@ Web
 Origin politika
 HTTPS povinné pre offline a SW
 
-    ULOŽISKÁ
+  - ULOŽISKÁ -
 localStorage
 Malé textové údaje (key → value)
 Jednoduché
@@ -94,11 +94,11 @@ Vyhľadávanie
 Transakcie
 Vhodné pre veľké zoznamy
  
-    OFFLINE STRATÉGIE
+  - OFFLINE STRATÉGIE - 
 Cache-first → statické časti aplikácie
 Network-first + fallback → dynamické dáta zo servera
 
-    Na aké udalosti môže reagovať aplikácia
+   Na aké udalosti môže reagovať aplikácia
 microphone
 compass
 bluetooth
@@ -115,7 +115,7 @@ password
 message
 date
 
-    ZÁKLADNÉ PROGRAMOVACIE POJMY
+  -- ZÁKLADNÉ PROGRAMOVACIE POJMY --
 
 .pop() → vymaže posledný prvok
 .clear() → vymaže celé pole
@@ -126,7 +126,7 @@ date
 return → ukončí funkciu a vráti hodnotu
 pass → nič neurobí (len placeholder)
 
-    SERVICE WORKER – DETAILNE
+  -- SERVICE WORKER – DETAILNE --
 Čo je Service Worker?
 JavaScriptový súbor, ktorý:
 beží na pozadí prehliadača
@@ -144,7 +144,7 @@ Obmedzenia:
 funguje len na HTTPS alebo localhost
 rovnaký pôvod ako stránka
 
-    APP SHELL MODEL
+-- APP SHELL MODEL --
 Čo je App Shell?
 Základná kostra aplikácie:
 index.html
@@ -158,7 +158,7 @@ rýchle načítanie
 fungovanie offline
 oddelenie statiky a dynamiky
 
-    MINIMÁLNA ŠTRUKTÚRA PWA
+  -- MINIMÁLNA ŠTRUKTÚRA PWA --
 Povinné súbory:
 index.html
 style.css
@@ -169,19 +169,19 @@ manifest.webmanifest
 Priečinok:
 icons (192x192, 512x512)
 
-    REGISTRÁCIA SERVICE WORKERA
+  -- REGISTRÁCIA SERVICE WORKERA --
 Vkladá sa do index.html
 Pred koniec <body>
 Funguje len na HTTPS / localhost
 Stav možno sledovať v konzole
 
-    SW.JS – PROFESIONÁLNY ZÁKLAD
+  -- SW.JS – PROFESIONÁLNY ZÁKLAD --
 CACHE_VERSION → ručne meníme pri aktualizácii
 PRECACHE_ASSETS → základné súbory
 Fetch handler → sieť alebo cache
 Runtime caching → dynamické ukladanie počas behu
 
-    ZHRNUTIE
+  ---- ZHRNUTIE ----
 Native = plný výkon + plný HW
 Hybrid = web zabalený do aplikácie
 PWA = webová aplikácia s offline podporou
