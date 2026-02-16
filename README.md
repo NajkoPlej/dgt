@@ -1,168 +1,194 @@
---- SERVICE WORKER ---
-- JavaScriptový skript bežiaci na pozadí prehliadača
-- Beží nezávisle od otvorenej stránky
-- Interceptuje sieťové požiadavky
-- Používa sa na:
-    - cachovanie zdrojov
-    - zlepšenie rýchlosti
-    - offline režim
-      
---- PREČO POUŽIŤ ---
-- Rýchlejšie načítanie (cache statických assetov)
-- Offline podpora a degradované správanie pri strate siete
-- Push notifikácie
-- Pozadí synchronizácia
+1. DRUHY APLIKÁCIÍ
+   1️ Native aplikácie
+Vytvorené priamo pre Android / iOS
+Inštalácia cez Store (Google Play, App Store)
+Plný prístup k hardvéru:
+Bluetooth
+senzory
+kamera
+GPS
+beh na pozadí
+Vysoký výkon
+Používajú špecifické natívne API
 
---- HLAVNÉ LIFECYCLE UDALOSTI ---
-1. install
-  - precache dôležitých statických súborov
-  - spúšta sa pri registrácii alebo novej verzii SW (Service Worker)
-2. activate
-  - čistenie starých cache verzií
-  - zabezpečenie aktuálnosti a konzistencie dát
-3. fetch
-  - rozhoduje medzi sieťou a cache
-  - používa cache stratégie
-4. waiting stav
-  - nový SW čaká, kým sa nezavrú staré karty
-  - skipWaiting urýchľuje aktiváciu
+Výhoda: maximálny výkon a plný HW prístup
+Nevýhoda: vývoj zvlášť pre každú platformu
 
---- BEŽNÉ CACHE STRATÉGIE ---
-- Cache-first
-  - statické assety (CSS, JS, obrázky)
-  - rýchle
-  - vhodné pre offline
-- Network-first
-  - dynamické a autentifikačné dáta
-  - fallback na cache pri výpadku siete
-- Stale-while-revalidate
-  - rýchla odpoveď z cache
-  - aktualizácia cache na pozadí
+    2️ Hybrid aplikácie
+Webová aplikácia zabalená do WebView („web v krabičke“)
+Obsahuje mostík medzi webom a natívnymi funkciami
+Distribúcia cez Store
+Potrebuje server a internet
+Čiastočný prístup k HW
+Charakteristika:
+Webové UI
+Pár natívnych schopností
 
---- DEFINÍCIA A VÝZNAM ---
--Beží na pozadí
--Spravuje sieťové požiadavky
+Výhoda: jeden kód pre viac platforiem
+Nevýhoda: závislosť na internete
 
---- VÝHODY CACHE A OFFLINE REŽIMU ---
--Rýchlejšie načítavanie
--Funkčnosť aplikácie bez internetu
+    3️ PWA (Progressive Web App)
+PWA = web + manifest + service worker + HTTPS
+Inštalácia z webu („Add to Home Screen“)
+Spája výhody webu a natívnych aplikácií
+Rýchly vývoj
+Jednoduchá distribúcia
+Offline režim pomocou cache
+Nemá plný prístup k HW ako native
+⚠ Service Worker nebeží ako klasická aplikácia na pozadí – funguje v rámci prehliadača.
 
---- PODPORA PWA FUNKCIÍ ---
--Správanie ako natívna aplikácia
--Inštalácia
--Ikona na zariadení
+ANDROID – ZÁKLADNÉ POJMY
+Activity – jedna obrazovka aplikácie
+Intent – presun medzi obrazovkami
+Android Manifest – pravidlá aplikácie:
+názov
+povolenia
+aktivity
 
---- OBMEDZENIA A BEZPEČNOSŤ ---
--Funguje iba na HTTPS alebo localhost
--Vyžaduje rovnaký pôvod ako webová stránka
+PWA – ČO JE NUTNÉ
+    1️ Web Manifest (manifest.webmanifest / .json)
+„Vizitka aplikácie“
+Najdôležitejšie:
+name
+short_name
+start_url
+icons (192x192, 512x512)
+display: standalone
+scope
+id
+background_color
+theme_color
 
-_____________________________________________________
+    2 Service Worker
+Zabezpečuje offline režim a cache.
+Lifecycle udalosti:
+install → precache súborov
+activate → čistenie starej cache
+fetch → zachytáva požiadavky (sieť vs cache)
+Cache stratégie:
+Cache-first → statické súbory (HTML, CSS, JS, obrázky)
+Network-first + fallback → dynamické dáta (JSON)
+Stale-while-revalidate → rýchla odpoveď + aktualizácia na pozadí
 
---- APP SHELL MODEL ---
--Základná kostra aplikácie
+     3️ HTTPS
+Povinné pre PWA (okrem localhost)
+Bezpečnostné pravidlá podľa domény (origin)
 
---- ZÁKLADNÁ KOSTRA APLIKÁCIE ---
-precache:
--index.html
--CSS
--skripty
+    BEZPEČNOSŤ
+Android
+Sandbox → každá aplikácia má vlastný priestor
+Permissions → aplikácia sa pýta na prístup (kamera, mikrofón…)
+Web
+Origin politika
+HTTPS povinné pre offline a SW
 
---- RÝCHLEJŠIE NAČÍTAVANIE OFFLINE ---
--okamžité načítanie aplikácie
--funguje pri slabom alebo žiadnom internete
+    ULOŽISKÁ
+localStorage
+Malé textové údaje (key → value)
+Jednoduché
+Ukladá len text
+(JSON umožňuje ukladať iné dátové typy ako text)
+IndexedDB
+Väčšie množstvo dát
+Vyhľadávanie
+Transakcie
+Vhodné pre veľké zoznamy
+ 
+    OFFLINE STRATÉGIE
+Cache-first → statické časti aplikácie
+Network-first + fallback → dynamické dáta zo servera
 
---- DYNAMICKÉ NAČÍTANIE DÁT ---
--dáta sa načítavajú počas behu aplikácie
--oddelené od statickej kostry
+    Na aké udalosti môže reagovať aplikácia
+microphone
+compass
+bluetooth
+GPS
+camera
+prístup k súborom / galérii
+input prvky:
+radio
+textarea
+checkbox
+color
+email
+password
+message
+date
 
---- VÝHODY PRE ŠKOLSKÉ PROJEKTY ---
--lepšie pochopenie offline režimu
--rozdelenie projektu:
--statická časť
--dynamická časť
+    ZÁKLADNÉ PROGRAMOVACIE POJMY
 
---- MINIMÁLNA ŠTRUKTÚRA PWA PROJEKTU ---
-POVINNÉ SÚBORY PWA
--index.html
--style.css
--sw.js
--offline.html
--manifest.webmanifest
+.pop() → vymaže posledný prvok
+.clear() → vymaže celé pole
+.append() → pridá prvok do poľa
+.strip() → odstráni medzery
+.get() → získa hodnotu podľa kľúča (ak neexistuje, vráti None alebo default)
+.value → vráti hodnotu inputu
+return → ukončí funkciu a vráti hodnotu
+pass → nič neurobí (len placeholder)
 
---- ŠTRUKTÚRA PRIEČINKOV ---
--icons/
--192x192px
--512x512px
--zabezpečenie vizuálnej identity aplikácie
+    SERVICE WORKER – DETAILNE
+Čo je Service Worker?
+JavaScriptový súbor, ktorý:
+beží na pozadí prehliadača
+zachytáva sieťové požiadavky
+umožňuje cache
+umožňuje offline režim
+podporuje push notifikácie
 
---- BRYTHON ŠPECIFIKÁCIA ---
--app.py
--bryhton.min.js
--brython_stdlib.js
--zabezpečenie lokálnej funkčnosti bez internetu
+Hlavné výhody:
+rýchlejšie načítanie
+offline režim
+správa ako natívna aplikácia
 
---- ODDELENIE STATICKÝCH A DYNAMICKÝCH SÚBOROV ---
--lepšie cache
--jednoduchšia údržba aplikácie
+Obmedzenia:
+funguje len na HTTPS alebo localhost
+rovnaký pôvod ako stránka
 
---- REGISTRÁCIA SERVICE WORKERA V INDEX.HTML ---
-ZÁKLADNÝ KROK PWA
--nevyhnutné pre PWA funkcionalitu
+    APP SHELL MODEL
+Čo je App Shell?
+Základná kostra aplikácie:
+index.html
+CSS
+JS
+ikony
+Tieto súbory sa precachujú pri inštalácii SW.
 
---- UMIESTNENIE V INDEX.HTML ---
--pred koniec <body>
--nezdržuje načítanie stránky
+Výhody:
+rýchle načítanie
+fungovanie offline
+oddelenie statiky a dynamiky
 
---- BEZPEČNOSTNÉ OBMEDZENIA ---
--iba HTTPS alebo localhost
+    MINIMÁLNA ŠTRUKTÚRA PWA
+Povinné súbory:
+index.html
+style.css
+sw.js
+offline.html
+manifest.webmanifest
 
---- PROFESIONALITA A LADENIE ---
--sledovanie stavu v konzole
--profesionálna webová prax
+Priečinok:
+icons (192x192, 512x512)
 
---- SW.JS – PROFESIONÁLNY ZÁKLAD ---
-CACHE VERZOVANIE A AKTUALIZÁCIE
-CACHE_VERSION sa mení manuálne
--zabraňuje používaniu starých súborov
+    REGISTRÁCIA SERVICE WORKERA
+Vkladá sa do index.html
+Pred koniec <body>
+Funguje len na HTTPS / localhost
+Stav možno sledovať v konzole
 
---- PRECACHE A APP SHELL ---
-PRECACHE_ASSETS:
--index.html
--štýly
--skripty
--ikony
+    SW.JS – PROFESIONÁLNY ZÁKLAD
+CACHE_VERSION → ručne meníme pri aktualizácii
+PRECACHE_ASSETS → základné súbory
+Fetch handler → sieť alebo cache
+Runtime caching → dynamické ukladanie počas behu
 
-- - - FETCH A OFFLINE CALLBACK - - -
-navigačné požiadavky:
--sieť
--fallback na offline.html
-
---- RUNTIME CACHING A SELEKTÍVNA OBSLUHA ---
--dynamické dopĺňanie cache
--selektívna obsluha podľa typu požiadavky
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ZHRNUTIE
+Native = plný výkon + plný HW
+Hybrid = web zabalený do aplikácie
+PWA = webová aplikácia s offline podporou
+localStorage = malé texty
+IndexedDB = veľké dáta
+Cache-first = statika
+Network-first = dáta
 
 
 
